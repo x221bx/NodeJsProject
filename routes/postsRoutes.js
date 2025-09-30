@@ -1,15 +1,13 @@
-import express from 'express'
-import { getAllPosts } from '../controllers/postsControllers.js';
-import { authMiddleware } from '../middleware/authMiddleware.js';
-import { requireRole } from '../middleware/roleMiddleware.js';
-
+import express from "express";
+import { getAllPosts, createPost, updatePost, deletePost } from "../controllers/postsControllers.js";
+import { authMiddleware } from "../middleware/authMiddleware.js";
+import { requireRole } from "../middleware/roleMiddleware.js";
 
 const router = express.Router();
 
-
-router.route('/').get(getAllPosts)
-
-
-
+router.get("/", authMiddleware, getAllPosts);
+router.post("/", authMiddleware, requireRole(["user", "admin"]), createPost);
+router.put("/:id", authMiddleware, requireRole(["user", "admin"]), updatePost);
+router.delete("/:id", authMiddleware, requireRole(["user", "admin"]), deletePost);
 
 export const postRouter = router;
