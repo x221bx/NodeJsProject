@@ -5,7 +5,7 @@ node_modules/
 .env
 *.env
 
-# service account key (ما يتدفعش تاني)
+# service account key 
 serviceAccountKey.json
 
 # build outputs
