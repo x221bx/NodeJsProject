@@ -1,6 +1,6 @@
-import { collection } from "firebase/firestore";
+
 import { db } from "../config/firebase.js";
 
-const postsCollection = collection(db, "posts");
+const postsCollection = db.collection('posts')
 
 export default postsCollection;

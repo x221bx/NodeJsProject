@@ -4,10 +4,12 @@ import { authRouter } from "./routes/authRoutes.js";
 import { postRouter } from "./routes/postsRoutes.js";
 import { authMiddleware } from "./middleware/authMiddleware.js";
 import { commentRouter } from "./routes/commentsRouts.js";
+import cors from "cors";
 
 
 const app = express();
 app.use(express.json());
+app.use(cors({ origin: "http://localhost:5173" }));
 app.use((req, res, next) => {
     console.log("Hello From the Middleware");
     req.requestTime = new Date().toISOString();
