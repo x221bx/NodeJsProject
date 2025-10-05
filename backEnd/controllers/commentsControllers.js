@@ -7,6 +7,7 @@ export const createComment = async (req, res) => {
     const { postId } = req.params;
     const { content } = req.body;
     const userId = req.user.id;
+    const authorName = req.user.name;
 
     if (!content?.trim()) {
       return res.status(400).json({ error: "Content is required" });
@@ -18,12 +19,13 @@ export const createComment = async (req, res) => {
       userId,
       content: content.trim(),
       createdAt: now,
-      updatedAt: now
+      updatedAt: now,
+      authorName
     };
 
     const ref = await commentsCollection(postId).add(newComment);
 
-    res.status(201).json({ id: ref.id, ...newComment });
+    res.status(201).json({ id: ref.id, ...newComment ,authorName});
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

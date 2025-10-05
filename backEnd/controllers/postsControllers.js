@@ -28,6 +28,8 @@ export const createPost = async (req, res) => {
   try {
     const { title, content } = req.body;
     const authorId = req.user.id;
+    const authorName = req.user.name;
+    const createdAt = new Date().toISOString();
 
     // const imageUrl = await handleImage(req.file);
 
@@ -35,11 +37,12 @@ export const createPost = async (req, res) => {
       title,
       content,
       authorId,
+      authorName,
       // imageUrl,
-      createdAt: new Date().toISOString(),
+      createdAt
     });
 
-    res.status(201).json({ id: newPost.id, title, content, authorId });
+    res.status(201).json({ id: newPost.id, title, content, authorId ,authorName, createdAt});
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

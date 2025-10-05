@@ -1,13 +1,14 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import swal from "sweetalert";
 
 export const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -21,10 +22,15 @@ export const Login = () => {
       .post("http://localhost:3000/api/auth/login", formData)
       .then((res) => {
         console.log(res.data.token);
-        
+
         localStorage.setItem("token", res.data.token);
-        alert("Login successful ✅");
-        navigate('/')
+        swal({
+          title: "Welcome back!",
+          text: "You logged in successfully ✅",
+          icon: "success",
+        }).then(() => {
+          navigate("/");
+        });
       })
       .catch((error) => {
         console.error(error);

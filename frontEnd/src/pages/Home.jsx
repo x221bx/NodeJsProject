@@ -2,14 +2,16 @@ import React, { useEffect, useState } from "react";
 import Posts from "../components/post.jsx";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import swal from "sweetalert";
+
 
 export const Home = () => {
   const [user, setUser] = useState([]);
   const token = localStorage.getItem("token");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
-      if (!token) {
+    if (!token) {
       navigate("/login");
       return;
     }
@@ -25,11 +27,26 @@ export const Home = () => {
         console.error(error);
       });
   }, []);
-  const handelLogout =()=> {
-    localStorage.removeItem("token")
-    navigate('/login')
-  }
-      if (!token) return null;
+const handelLogout = () => {
+  swal({
+    title: "Are you sure?",
+    text: "Do you really want to log out?",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  }).then((willLogout) => {
+    if (willLogout) {
+      localStorage.removeItem("token");
+      swal("You have been logged out successfully ✅", {
+        icon: "success",
+      }).then(() => navigate("/login"));
+    } else {
+      swal("Logout canceled 🚫");
+    }
+  });
+};
+
+  if (!token) return null;
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-white to-blue-100">
       <header className="w-full bg-white/70 backdrop-blur-md shadow-md sticky top-0 z-50">
@@ -47,11 +64,12 @@ export const Home = () => {
               className="w-10 h-10 rounded-full shadow"
             />
           </div>
-          <button style={{cursor:'pointer'}} onClick={()=> handelLogout()}>Logout</button>
+          <button style={{ cursor: "pointer" }} onClick={() => handelLogout()}>
+            Logout
+          </button>
         </div>
       </header>
 
-      
       <main className="max-w-5xl mx-auto p-6">
         <Posts user={user} token={token} />
       </main>

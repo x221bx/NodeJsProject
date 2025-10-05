@@ -174,7 +174,7 @@ const handleDelete = async (id, authorId) => {
                   ) : (
                     <>
                       <h3 className="text-2xl font-bold text-gray-900 mb-3">
-                        {post.title}
+                        {post.authorName}
                       </h3>
                       <p className="text-gray-700 mb-4 leading-relaxed">
                         {post.content}
@@ -183,10 +183,10 @@ const handleDelete = async (id, authorId) => {
                       <div className="flex items-center justify-between pt-4 border-t border-gray-200">
                         <div className="flex items-center gap-4 text-sm">
                           <span className="text-gray-500">
-                            ✍ {post.authorId === user.id ? "You" : user?.name}
+                            ✍ {post.authorId === user.id ? "You" : post.authorName}
                           </span>
                           <span className="text-gray-400">
-                            {post.createdAt}
+                            {new Date(post.createdAt).toLocaleString()}
                           </span>
                         </div>
 

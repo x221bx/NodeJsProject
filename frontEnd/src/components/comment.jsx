@@ -97,9 +97,9 @@ export default function Comments({ postId, user, token }) {
               </div>
             ) : (
               <>
-                <p className="text-gray-800 mb-2">{c.content}</p>
+                <h6 className="text-gray-900 mb-2  font-bold">{c.authorName || c.userId}</h6>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-500">{c.userName || c.userId}</span>
+                  <span className="text-sm text-gray-500">{c.content}</span>
                   {(user.role === "admin" || user.id === c.userId) && (
                     <div className="flex gap-2">
                       <button
