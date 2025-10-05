@@ -93,7 +93,7 @@ export const deletePost = async (req, res) => {
 
     await postRef.delete();
 
-    res.status(200).json({ message: "Post deleted" });
+    res.status(200).json({ message: "Post deleted" , postId: id });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

@@ -7,8 +7,11 @@ import { upload } from "../middleware/uploadMiddleware.js";
 const router = express.Router();
 
 router.get("/", authMiddleware, getAllPosts);
-router.post("/", authMiddleware, requireRole(["user", "admin"]), upload.single("image"), createPost);
+router.post("/", authMiddleware, createPost);
 router.put("/:id", authMiddleware, requireRole(["user", "admin"]), upload.single("image"), updatePost);
-router.delete("/:id", authMiddleware, requireRole(["user", "admin"]), deletePost);
+router.delete("/:id", authMiddleware,  deletePost);
 
 export const postRouter = router;
+
+// requireRole(["user", "admin"]),
+// requireRole(["user", "admin"]), upload.single("image"),
