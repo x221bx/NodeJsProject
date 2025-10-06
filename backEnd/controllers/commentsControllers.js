@@ -22,7 +22,7 @@ export const createComment = async (req, res) => {
       updatedAt: now,
       authorName
     };
-
+    
     const ref = await commentsCollection(postId).add(newComment);
 
     res.status(201).json({ id: ref.id, ...newComment ,authorName});

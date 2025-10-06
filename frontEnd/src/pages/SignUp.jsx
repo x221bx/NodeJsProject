@@ -8,6 +8,7 @@ export const SignUp = () => {
     email: "",
     password: "",
   });
+  const [file, setFile] = useState("");
   const navigate = useNavigate();
   const handleChange = (e) => {
     setFormData({
@@ -15,12 +16,22 @@ export const SignUp = () => {
       [e.target.name]: e.target.value,
     });
   };
+    const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const fd = new FormData();
+    fd.append("name", formData.name);
+    fd.append("email", formData.email);
+    fd.append("password", formData.password);
+    if (file) fd.append("image", file);
     console.log("Form Data:", formData);
     axios
-      .post("http://localhost:3000/api/auth/register", formData)
+      .post("http://localhost:2000/api/auth/register", fd ,{
+        headers: { "Content-Type": "multipart/form-data" },
+      })
       .then(() => {
         alert("Account created successfully ✅");
         navigate("/login");
@@ -126,6 +137,16 @@ export const SignUp = () => {
               onChange={handleChange}
               style={inputStyle}
               required
+            />
+          </div>
+                    <div>
+            <label style={labelStyle}>Profile Picture</label>
+            <input
+              type="file"
+              name="image"
+              accept="image/*"
+              onChange={handleFileChange}
+              style={inputStyle}
             />
           </div>
 

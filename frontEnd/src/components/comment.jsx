@@ -10,7 +10,7 @@ export default function Comments({ postId, user, token }) {
   // fetch comments
   useEffect(() => {
     if (postId) {
-      fetch(`http://localhost:3000/api/comments/${postId}`, {
+      fetch(`http://localhost:2000/api/comments/${postId}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then(res => res.json())
@@ -21,7 +21,7 @@ export default function Comments({ postId, user, token }) {
 
   const handleAdd = async () => {
     if (!newContent.trim()) return;
-    const res = await fetch(`http://localhost:3000/api/comments/${postId}`, {
+    const res = await fetch(`http://localhost:2000/api/comments/${postId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -37,7 +37,7 @@ export default function Comments({ postId, user, token }) {
   const handleDelete = async (commentId, userId) => {
     if (user.role !== "admin" && user.id !== userId) return alert("Not allowed");
 
-    await fetch(`http://localhost:3000/api/comments/${postId}/${commentId}`, {
+    await fetch(`http://localhost:2000/api/comments/${postId}/${commentId}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -47,7 +47,7 @@ export default function Comments({ postId, user, token }) {
   const handleUpdate = async (commentId, userId) => {
     if (user.role !== "admin" && user.id !== userId) return alert("Not allowed");
 
-    const res = await fetch(`http://localhost:3000/api/comments/${postId}/${commentId}`, {
+    const res = await fetch(`http://localhost:2000/api/comments/${postId}/${commentId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

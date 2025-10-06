@@ -7,9 +7,9 @@ import { upload } from "../middleware/uploadMiddleware.js";
 const router = express.Router();
 
 router.get("/", authMiddleware, getAllPosts);
-router.post("/", authMiddleware, createPost);
-router.put("/:id", authMiddleware, requireRole(["user", "admin"]), upload.single("image"), updatePost);
-router.delete("/:id", authMiddleware,  deletePost);
+router.post("/", authMiddleware, upload.single("image"), createPost);
+router.put("/:id", authMiddleware, requireRole(["user", "admin"]), updatePost);
+router.delete("/:id", authMiddleware, deletePost);
 
 export const postRouter = router;
 

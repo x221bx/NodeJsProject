@@ -10,7 +10,7 @@ import { NotFound } from "./pages/NotFound";
 function App() {
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/users")
+      .get("http://localhost:2000/api/users")
       .then((res) => {
         console.log(res.data);
       })

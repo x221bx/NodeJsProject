@@ -19,7 +19,7 @@ export const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:3000/api/auth/login", formData)
+      .post("http://localhost:2000/api/auth/login", formData)
       .then((res) => {
         console.log(res.data.token);
 

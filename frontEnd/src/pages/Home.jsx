@@ -16,7 +16,7 @@ export const Home = () => {
       return;
     }
     axios
-      .get("http://localhost:3000/api/users/me", {
+      .get("http://localhost:2000/api/users/me", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -59,7 +59,7 @@ const handelLogout = () => {
               {user?.name || "Guest"}
             </span>
             <img
-              src="https://ui-avatars.com/api/?name=User&background=6366f1&color=fff"
+              src={user.imageUrl}
               alt="avatar"
               className="w-10 h-10 rounded-full shadow"
             />
