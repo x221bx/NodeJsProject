@@ -8,7 +8,7 @@ import cors from "cors";
 import swaggerUi from "swagger-ui-express";
 import swaggerJsdoc from "swagger-jsdoc";
 
-const app = express(); // 👈 لازم ييجي هنا الأول
+const app = express(); 
 
 // Swagger setup
 const options = {

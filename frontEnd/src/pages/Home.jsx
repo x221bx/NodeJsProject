@@ -4,7 +4,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 
-
 export const Home = () => {
   const [user, setUser] = useState([]);
   const token = localStorage.getItem("token");
@@ -27,24 +26,24 @@ export const Home = () => {
         console.error(error);
       });
   }, []);
-const handelLogout = () => {
-  swal({
-    title: "Are you sure?",
-    text: "Do you really want to log out?",
-    icon: "warning",
-    buttons: true,
-    dangerMode: true,
-  }).then((willLogout) => {
-    if (willLogout) {
-      localStorage.removeItem("token");
-      swal("You have been logged out successfully ✅", {
-        icon: "success",
-      }).then(() => navigate("/login"));
-    } else {
-      swal("Logout canceled 🚫");
-    }
-  });
-};
+  const handelLogout = () => {
+    swal({
+      title: "Are you sure?",
+      text: "Do you really want to log out?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willLogout) => {
+      if (willLogout) {
+        localStorage.removeItem("token");
+        swal("You have been logged out successfully ✅", {
+          icon: "success",
+        }).then(() => navigate("/login"));
+      } else {
+        swal("Logout canceled 🚫");
+      }
+    });
+  };
 
   if (!token) return null;
   return (
@@ -54,19 +53,25 @@ const handelLogout = () => {
           <h1 className="text-2xl font-extrabold text-indigo-600 tracking-tight">
             📝 My Blog
           </h1>
-          <div className="flex items-center gap-3">
-            <span className="text-gray-700 font-medium">
-              {user?.name || "Guest"}
-            </span>
-            <img
-              src={user.imageUrl}
-              alt="avatar"
-              className="w-10 h-10 rounded-full shadow"
-            />
+          <div className="flex gap-5">
+            <div className="flex items-center gap-3">
+              <span className="text-gray-700 font-medium">
+                {user?.name || "Guest"}
+              </span>
+              <img
+                src={user.imageUrl}
+                alt="avatar"
+                className="w-10 h-10 rounded-full shadow"
+              />
+            </div>
+            <button
+              style={{ cursor: "pointer" }}
+              className="bg-blue-500 px-5 text-white rounded-2xl hover:bg-blue-700  transition"
+              onClick={() => handelLogout()}
+            >
+              Logout
+            </button>
           </div>
-          <button style={{ cursor: "pointer" }} onClick={() => handelLogout()}>
-            Logout
-          </button>
         </div>
       </header>
 
