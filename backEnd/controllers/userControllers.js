@@ -19,7 +19,7 @@ export const getUserById = async (req, res) => {
 };
 // update users
 
-export const udatedUser = async (req, res) => {
+export const updatedUser = async (req, res) => {
   const userId = req.params.id;
   const updatedUser = req.body;
   await userCollection.doc(userId).update(updatedUser);
