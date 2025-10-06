@@ -102,9 +102,9 @@ export const updatePost = async (req, res) => {
     if (postData.authorId !== userId && role !== "admin") {
       return res.status(403).json({ message: "Not allowed" });
     }
-
-    const imageUrl = await handleImage(req.file);
-    const updatedData = { title, content, ...(imageUrl && { imageUrl }) };
+    const updatedData = {};
+    if (title) updatedData.title = title;
+    if (content) updatedData.content = content;
 
     await postRef.update(updatedData);
 

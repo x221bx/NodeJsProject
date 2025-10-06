@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import swal from "sweetalert";
 
 export const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -33,8 +34,13 @@ export const SignUp = () => {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then(() => {
-        alert("Account created successfully ✅");
-        navigate("/login");
+        swal({
+          title: "Welcome back!",
+          text: "You logged in successfully ✅",
+          icon: "success",
+        }).then(() => {
+          navigate("/login ");
+        });
       })
       .catch((error) => console.log(error));
   };

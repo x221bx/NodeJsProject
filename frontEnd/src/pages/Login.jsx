@@ -34,7 +34,11 @@ export const Login = () => {
       })
       .catch((error) => {
         console.error(error);
-        alert("Login failed ❌");
+        swal({
+          title: "Login failed",
+        text: error.response?.data?.message || "Invalid email or password ❌",
+          icon: "error",
+        })
       });
   };
 

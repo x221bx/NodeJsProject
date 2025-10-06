@@ -8,6 +8,7 @@ import {
   PlusCircle,
 } from "lucide-react";
 import Comments from "./comment";
+import swal from "sweetalert";
 
 export default function Posts({ user, token }) {
   const [posts, setPosts] = useState([]);
@@ -29,9 +30,24 @@ export default function Posts({ user, token }) {
       .catch((err) => console.error("Error fetching posts", err));
   }, [token]);
 
+  const handelDeleteSubmit = (postId, userId) => {
+    swal({
+      title: "Are you sure?",
+      text: "Do you really want to Delete this Post?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        handleDelete(postId, userId);
+      } else {
+        swal("Deleted canceled 🚫");
+      }
+    });
+  };
   const handleDelete = async (id, authorId) => {
     if (user.role !== "admin" && user.id !== authorId)
-      return alert("Not allowed");
+      return swal("Not allowed ❌");
 
     const res = await fetch(`http://localhost:2000/api/posts/${id}`, {
       method: "DELETE",
@@ -43,6 +59,9 @@ export default function Posts({ user, token }) {
     if (res.ok) {
       setPosts(posts.filter((p) => p.id !== id));
       if (selected === id) setSelected(null);
+      swal("You have deleted the post successfully ✅", {
+        icon: "success",
+      });
     } else {
       alert(data.message || "Failed to delete");
     }
@@ -182,33 +201,26 @@ export default function Posts({ user, token }) {
                     </div>
                   ) : (
                     <>
-                      <div className="flex">
+                      <div className="flex items-center space-x-3">
                         <img
                           src={post.userImageUrl}
-                          alt=""
-                          className="w-[50px] h-[50px] rounded-2xl"
+                          alt={post.authorName}
+                          className="w-12 h-12 rounded-full object-cover shadow"
                         />
-                        <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                        <h3 className="text-lg font-semibold text-gray-900">
                           {post.authorName}
                         </h3>
                       </div>
-
-                      <p className="text-gray-700 mb-4 leading-relaxed">
-                        {post.content}
-                      </p>
+                      <span className="text-gray-400 text-xs">
+                        {new Date(post.createdAt).toLocaleString()}
+                      </span>
 
                       <div className="pt-4 border-t border-gray-200 space-y-3">
                         {/* Author + Date */}
                         <div className="flex items-center gap-2 text-sm text-gray-500">
-                          <span className="font-medium text-gray-700">
-                            ✍{" "}
-                            {post.authorId === user.id
-                              ? "You"
-                              : post.authorName}
-                          </span>
-                          <span className="text-gray-400 text-xs">
-                            {new Date(post.createdAt).toLocaleString()}
-                          </span>
+                          <h1 className="text-gray-700 mb-4 leading-relaxed text-2xl">
+                            {post.content}
+                          </h1>
                         </div>
 
                         {/* Post Image */}
@@ -216,7 +228,7 @@ export default function Posts({ user, token }) {
                           <img
                             src={post.imageUrl}
                             alt="post"
-                            className="w-full max-h-96 object-cover rounded-lg border"
+                            className="w-full max-h-9/12 object-cover rounded-lg border"
                           />
                         )}
 
@@ -238,7 +250,7 @@ export default function Posts({ user, token }) {
                               </button>
                               <button
                                 onClick={() => {
-                                  handleDelete(post.id, post.authorId);
+                                  handelDeleteSubmit(post.id, post.authorId);
                                 }}
                                 className="flex items-center gap-1 px-3 py-1.5 text-red-600 hover:bg-red-50 rounded-lg transition text-sm font-medium"
                               >
