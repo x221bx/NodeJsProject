@@ -31,7 +31,7 @@ export const SignUp = () => {
     if (file) fd.append("image", file);
     console.log("Form Data:", formData);
     axios
-      .post(apiUrl("/api/auth/register"), fd ,{
+      .post((`${apiUrl}/api/auth/register`), fd ,{
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then(() => {

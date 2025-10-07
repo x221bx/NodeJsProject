@@ -35,7 +35,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // Middleware
 app.use(
   cors({
-    origin: env.CORS_ORIGIN,
+    origin: 'https://effervescent-florentine-67b4f3.netlify.app',
     credentials: true,
   })
 );

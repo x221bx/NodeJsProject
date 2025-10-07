@@ -18,9 +18,11 @@ export const Login = () => {
   };
 
   const handleSubmit = (e) => {
+    
+    
     e.preventDefault();
     axios
-      .post(apiUrl("/api/auth/login"), formData)
+      .post((`${apiUrl()}/api/auth/login`), formData)
       .then((res) => {
         console.log(res.data.token);
 

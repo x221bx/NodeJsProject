@@ -23,7 +23,7 @@ export default function PostCard({
     if (user.role !== "admin" && user.id !== authorId)
       return swal("Not allowed ❌");
 
-    const res = await fetch(apiUrl(`/api/posts/${id}`), {
+    const res = await fetch((`${apiUrl()}/api/posts/${id}`), {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -59,7 +59,7 @@ export default function PostCard({
     if (user.role !== "admin" && user.id !== authorId)
       return alert("Not allowed");
 
-    const res = await fetch(apiUrl(`/api/posts/${id}`), {
+    const res = await fetch((`${apiUrl()}/api/posts/${id}`), {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

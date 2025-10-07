@@ -16,7 +16,7 @@ export const Home = () => {
       return;
     }
     axios
-      .get(apiUrl("/api/users/me"), {
+      .get((`${apiUrl()}/api/users/me`), {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {

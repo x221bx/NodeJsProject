@@ -12,7 +12,7 @@ export default function Posts({ user, token }) {
 
   // fetch posts
   useEffect(() => {
-    fetch(apiUrl("/api/posts"), {
+    fetch((`${apiUrl()}/api/posts`), {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())

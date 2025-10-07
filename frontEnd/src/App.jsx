@@ -11,7 +11,7 @@ import { NotFound } from "./pages/NotFound";
 function App() {
   useEffect(() => {
     axios
-      .get(apiUrl("/api/users"))
+      .get((`${apiUrl()}/api/users`))
       .then((res) => {
         console.log(res.data);
       })
