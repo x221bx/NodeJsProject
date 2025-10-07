@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { PlusCircle } from "lucide-react";
+import { apiUrl } from "../config/api";
 
 export default function CreatePostBox({ posts, setPosts, token }) {
   const [newTitle, setNewTitle] = useState("");
@@ -14,7 +15,7 @@ export default function CreatePostBox({ posts, setPosts, token }) {
     fd.append("content", newContent);
     if (file) fd.append("image", file);
 
-    const res = await fetch(`http://localhost:2000/api/posts`, {
+    const res = await fetch(apiUrl(`/api/posts`), {
       method: "POST",
       headers: { Authorization: `Bearer ${token}` },
       body: fd,

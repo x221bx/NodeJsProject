@@ -7,6 +7,7 @@ import { commentRouter } from "./routes/commentsRouts.js";
 import cors from "cors";
 import swaggerUi from "swagger-ui-express";
 import swaggerJsdoc from "swagger-jsdoc";
+import { env } from "./config/env.js";
 
 const app = express(); 
 
@@ -21,7 +22,7 @@ const options = {
     },
     servers: [
       {
-        url: "http://localhost:2000/api",
+        url: env.SWAGGER_SERVER_URL,
       },
     ],
   },
@@ -34,7 +35,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // Middleware
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: env.CORS_ORIGIN,
     credentials: true,
   })
 );

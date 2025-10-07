@@ -3,6 +3,7 @@ import Posts from "../components/post.jsx";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
+import { apiUrl } from "../config/api";
 
 export const Home = () => {
   const [user, setUser] = useState([]);
@@ -15,7 +16,7 @@ export const Home = () => {
       return;
     }
     axios
-      .get("http://localhost:2000/api/users/me", {
+      .get(apiUrl("/api/users/me"), {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {

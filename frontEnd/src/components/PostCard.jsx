@@ -2,6 +2,7 @@ import { Edit2, Trash2, MessageSquare } from "lucide-react";
 import swal from "sweetalert";
 import EditForm from "./EditForm";
 import { useState } from "react";
+import { apiUrl } from "../config/api";
 
 export default function PostCard({
   post,
@@ -22,7 +23,7 @@ export default function PostCard({
     if (user.role !== "admin" && user.id !== authorId)
       return swal("Not allowed ❌");
 
-    const res = await fetch(`http://localhost:2000/api/posts/${id}`, {
+    const res = await fetch(apiUrl(`/api/posts/${id}`), {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -58,7 +59,7 @@ export default function PostCard({
     if (user.role !== "admin" && user.id !== authorId)
       return alert("Not allowed");
 
-    const res = await fetch(`http://localhost:2000/api/posts/${id}`, {
+    const res = await fetch(apiUrl(`/api/posts/${id}`), {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

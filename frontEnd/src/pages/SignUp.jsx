@@ -1,4 +1,5 @@
 import axios from "axios";
+import { apiUrl } from "../config/api";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
@@ -30,7 +31,7 @@ export const SignUp = () => {
     if (file) fd.append("image", file);
     console.log("Form Data:", formData);
     axios
-      .post("http://localhost:2000/api/auth/register", fd ,{
+      .post(apiUrl("/api/auth/register"), fd ,{
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then(() => {
