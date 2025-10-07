@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import CreatePostBox from "./CreatePostBox";
 import PostCard from "./PostCard";
 import Comments from "./Comments";
+import { apiUrl } from "../config/api";
 
 export default function Posts({ user, token }) {
   const [posts, setPosts] = useState([]);
@@ -11,7 +12,7 @@ export default function Posts({ user, token }) {
 
   // fetch posts
   useEffect(() => {
-    fetch("http://localhost:2000/api/posts", {
+    fetch(apiUrl("/api/posts"), {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())

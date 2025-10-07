@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { MessageSquare, Edit2, Trash2, Send, X, Check } from "lucide-react";
+import { apiUrl } from "../config/api";
 
 export default function Comments({ postId, user, token }) {
   const [comments, setComments] = useState([]);
@@ -10,7 +11,7 @@ export default function Comments({ postId, user, token }) {
   // fetch comments
   useEffect(() => {
     if (postId) {
-      fetch(`http://localhost:2000/api/comments/${postId}`, {
+      fetch(apiUrl(`/api/comments/${postId}`), {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then(res => res.json())
@@ -21,7 +22,7 @@ export default function Comments({ postId, user, token }) {
 
   const handleAdd = async () => {
     if (!newContent.trim()) return;
-    const res = await fetch(`http://localhost:2000/api/comments/${postId}`, {
+    const res = await fetch(apiUrl(`/api/comments/${postId}`), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -37,7 +38,7 @@ export default function Comments({ postId, user, token }) {
   const handleDelete = async (commentId, userId) => {
     if (user.role !== "admin" && user.id !== userId) return alert("Not allowed");
 
-    await fetch(`http://localhost:2000/api/comments/${postId}/${commentId}`, {
+    await fetch(apiUrl(`/api/comments/${postId}/${commentId}`), {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -47,7 +48,7 @@ export default function Comments({ postId, user, token }) {
   const handleUpdate = async (commentId, userId) => {
     if (user.role !== "admin" && user.id !== userId) return alert("Not allowed");
 
-    const res = await fetch(`http://localhost:2000/api/comments/${postId}/${commentId}`, {
+    const res = await fetch(apiUrl(`/api/comments/${postId}/${commentId}`), {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

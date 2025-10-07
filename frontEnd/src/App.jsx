@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import './App.css'
 import axios from "axios";
+import { apiUrl } from "./config/api";
 import { SignUp } from "./pages/SignUp";
 import { Login } from "./pages/Login";
 import { Route, Routes } from "react-router-dom";
@@ -10,7 +11,7 @@ import { NotFound } from "./pages/NotFound";
 function App() {
   useEffect(() => {
     axios
-      .get("http://localhost:2000/api/users")
+      .get(apiUrl("/api/users"))
       .then((res) => {
         console.log(res.data);
       })

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { apiUrl } from "../config/api";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
@@ -19,7 +20,7 @@ export const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:2000/api/auth/login", formData)
+      .post(apiUrl("/api/auth/login"), formData)
       .then((res) => {
         console.log(res.data.token);
 
